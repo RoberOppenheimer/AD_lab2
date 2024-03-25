@@ -90,16 +90,18 @@ class SetData(server.App):
         area = params['area']
         year = int(params['year'])
         weekRange = [int(x) for x in str(params['weekRange']).split('-')]
+
         searched_df = df[(df['Area'] == area) & (df['Year'] == year) & (df['Week'] >= weekRange[0]) & (df['Week'] <= weekRange[1])]
         searched_df = searched_df[['Year', 'Week', params['ticker'], 'Area']]
         return searched_df
 
     def getPlot(self, params):
+        df = self.getData(params)
         area = params['area']
         year = int(params['year'])
         weekRange = [int(x) for x in str(params['weekRange']).split('-')]
         ticker = params['ticker']
-        df = self.getData(params)
+
         searched_data = df[(df['Area'] == area) & (df['Year'] == year) & (df['Week'] >= weekRange[0]) & (df['Week'] <= weekRange[1])]
         plt_obj = searched_data.plot(x='Week', y=ticker)
         plt_obj.set_title(f"Графік для {area} області у {year} році для вказаного року та діапазону тижнів")
