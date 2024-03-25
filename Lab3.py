@@ -103,7 +103,7 @@ class SetData(server.App):
         ticker = params['ticker']
 
         searched_data = df[(df['Area'] == area) & (df['Year'] == year) & (df['Week'] >= weekRange[0]) & (df['Week'] <= weekRange[1])]
-        plt_obj = searched_data.plot(x='Week', y=ticker)
+        plt_obj = searched_data.plot(x='Week', y=ticker, figsize=(20, 10), grid=True)
         plt_obj.set_title(f"Графік для {area} області у {year} році для вказаного року та діапазону тижнів")
         plt_obj.set_ylabel("Значення")
         plt_obj.set_xlabel("Тижні")
