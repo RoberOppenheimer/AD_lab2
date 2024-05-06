@@ -19,7 +19,7 @@ def generate_harmonic_with_noise(amplitude, frequency, phase, noise_mean, noise_
     signal_with_noise = harmonic + noise
 
     if filter_noise:
-        b, a = iirfilter(4, cutoff_freq/nyquist, btype='highpass', ftype='butter')
+        b, a = iirfilter(4, cutoff_freq/nyquist, btype='lowpass', ftype='butter')
         filtered_signal = filtfilt(b, a, signal_with_noise)
     else:
         filtered_signal = signal_with_noise
@@ -104,19 +104,19 @@ app.layout = html.Div([
     dcc.Slider(
         id='nyquist-slider',
         min=0.01,
-        max=1000,
+        max=10,
         step=0.01,
         value=0.01,
-        marks={0.01: '0.01', 500: '500', 1000: '1000'}
+        marks={0.01: '0.01', 5: '5', 10: '10'}
     ),
     html.Label('Частота зрізу'),
     dcc.Slider(
         id='cutoff-freq-slider',
         min=0.001,
-        max=0.2,
+        max=1,
         step=0.001,
         value=0.001,
-        marks={0.001: '0.001', 0.1: '0.1', 0.2: '0.2'}
+        marks={0.001: '0.001', 0.5: '0.5', 1: '1'}
     ),
     html.Button('Скинути', id='reset-button', n_clicks=0)
 ])
